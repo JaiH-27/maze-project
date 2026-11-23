@@ -13,14 +13,14 @@ import java.util.Set;
  * it just draws whatever state the maze, generator and solver are in.
  */
 public class MazePanel extends JPanel {
-    private static final Color UNVISITED = new Color(60, 60, 60);
+    private static final Color UNVISITED = new Color(60, 22, 70);    // dark purple
     private static final Color CARVED = Color.WHITE;
-    private static final Color CURRENT = new Color(220, 50, 50);
-    private static final Color EXPLORED = new Color(150, 200, 255);
-    private static final Color PATH = new Color(255, 200, 0);
-    private static final Color START = new Color(80, 200, 80);
-    private static final Color EXIT = new Color(200, 80, 200);
-    private static final Color WALL = Color.BLACK;
+    private static final Color CURRENT = new Color(170, 80, 255);   // bright violet
+    private static final Color EXPLORED = new Color(220, 195, 240); // light lavender
+    private static final Color PATH = new Color(200, 20, 60);       // crimson
+    private static final Color START = new Color(120, 40, 170);     // deep purple
+    private static final Color EXIT = new Color(120, 0, 30);        // dark crimson
+    private static final Color WALL = new Color(35, 10, 40);        // near-black plum
 
     private Maze maze;
     private MazeGenerator generator;
@@ -28,7 +28,7 @@ public class MazePanel extends JPanel {
 
     public MazePanel() {
         setPreferredSize(new Dimension(700, 700));
-        setBackground(Color.LIGHT_GRAY);
+        setBackground(new Color(25, 8, 30));
     }
 
     public void setMaze(Maze maze) {
@@ -90,7 +90,7 @@ public class MazePanel extends JPanel {
         if (generator != null && !generator.isFinished() && generator.getCurrent() != null) {
             fillCell(g2, generator.getCurrent(), CURRENT, cellSize, offsetX, offsetY);
         }
-        if (solver != null && !solver.isFinished() && solver.getCurrent() != null) {
+            if (solver != null && !solver.isFinished() && solver.getCurrent() != null) {
             fillCell(g2, solver.getCurrent(), CURRENT, cellSize, offsetX, offsetY);
         }
 
@@ -110,7 +110,7 @@ public class MazePanel extends JPanel {
         }
     }
 
-    private void fillCell(Graphics2D g2, Cell cell, Color color, int size, int ox, int oy) {
+        private void fillCell(Graphics2D g2, Cell cell, Color color, int size, int ox, int oy) {
         g2.setColor(color);
         g2.fillRect(ox + cell.getCol() * size, oy + cell.getRow() * size, size, size);
     }

@@ -26,7 +26,7 @@ public class MazeGenerator {
         current = start;
     }
 
-    /** Does one step of the generator. Returns false once the maze is finished. */
+    /** Does one step of the generator. Returns false when the maze is finished */
     public boolean step() {
         if (stack.isEmpty()) {
             finished = true;
@@ -50,7 +50,7 @@ public class MazeGenerator {
         return true;
     }
 
-    /** Runs the whole thing with no animation (used for testing). */
+    /** Runs the whole thing without animations since its for testing */
     public void generateAll() {
         while (step()) { }
     }
