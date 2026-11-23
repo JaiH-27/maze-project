@@ -38,6 +38,7 @@ public class MazeApp extends JFrame {
 
         solveBtn.setEnabled(false);
         generateBtn.addActionListener(e -> startGenerating());
+        solveBtn.addActionListener(e -> startSolving());
         speedSlider.addChangeListener(e -> {
             if (timer != null) timer.setDelay(getDelay());
         });
@@ -87,6 +88,33 @@ public class MazeApp extends JFrame {
                 timer.stop();
                 status.setText("Maze generated. Press Solve.");
                 solveBtn.setEnabled(true);
+            }
+        });
+        timer.start();
+    }
+
+    private void startSolving() {
+        if (maze == null || generator == null || !generator.isFinished()) return;
+        stopTimer();
+
+        solver = new MazeSolver(maze);
+        panel.setSolver(solver);
+        solveBtn.setEnabled(false);
+        status.setText("Solving with BFS...");
+
+        timer = new Timer(getDelay(), e -> {
+            boolean running = true;
+            for (int i = 0; i < stepsPerTick() && running; i++) {
+                running = solver.step();
+            }
+            panel.repaint();
+            if (!running) {
+                timer.stop();
+                if (solver.isFound()) {
+                    status.setText("Solved! Shortest path length: " + solver.getPath().size() + " cells");
+                } else {
+                    status.setText("No path found");
+                }
             }
         });
         timer.start();
